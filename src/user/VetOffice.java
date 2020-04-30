@@ -1,5 +1,7 @@
 package user;
 
+import factory.StaffFactory;
+
 public class VetOffice {
 	/*
 	 * SYSTEM HAS TO
@@ -24,6 +26,16 @@ public class VetOffice {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		StaffFactory sf = new StaffFactory();
+		sf.addStaff();
+		
+		
+		
+		for (String name : sf.listNames()) {
+			System.out.println(name);
+		}
+		
 
 	}
 
