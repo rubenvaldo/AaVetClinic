@@ -1,19 +1,143 @@
 package factory;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
-import staff.admStaff.AdmStaff;
-import staff.medStaff.MedStaff;
-import staff.medStaff.Nurse;
-import staff.medStaff.TraineeVet;
-import staff.medStaff.Veterinarian;
-import staff.admStaff.*;
-//import staff.*;
+import staff.Manager;
+import staff.Nurse;
+import staff.Receptionist;
+import staff.Staff;
+import staff.TraineeVet;
+import staff.Veterinarian;
+
 
 
 public class StaffFactory {
+	
+	//int mgrID = 100; //starting ID Manager number
+	
+	public StaffFactory() {
+
+		
+	}
+	
+	public Staff getStaffType (String staffType, int i) {
+		
+		if (staffType.equalsIgnoreCase("MANAGER")) {
+			return new Manager(getRandomName(), getID("adm", i), getMgrSalary());
+		}
+		
+		else if (staffType.equalsIgnoreCase("RECEPTIONIST")) {
+			return new Receptionist(getRandomName(), getID("adm", i), getRecepSalary());
+		}
+		
+		else  if (staffType.equalsIgnoreCase("VETERINARIAN")) {
+			return new Veterinarian(getRandomName(), getID("med", i), getVetSalary());
+		}
+		
+		else if (staffType.equalsIgnoreCase("NURSE")) {
+			return new Nurse(getRandomName(), getID("med", i), getNurseSalary());
+		}
+		
+		else if (staffType.equalsIgnoreCase("TRAINEEVET")) {
+			return new TraineeVet(getRandomName(), getID("med", i), getTraineeSalary());
+		}
+		
+		else  {
+			return null;
+		}
+	}
+	
+	
+	public double getVetSalary() {
+		return 2000;
+	}
+	
+	public double getNurseSalary() {
+		return 1000;
+	}
+	public double getTraineeSalary() {
+		return 400;
+	}
+
+	public double getRecepSalary() {
+		return 500;
+	}
+
+	public double getMgrSalary() {
+		return 1000;
+	}
+	
+	
+	public String getID(String type, int i) {
+		
+		int staffID = 101;
+		staffID+= i;
+		
+		if(type.equalsIgnoreCase("adm")) {
+				return "ADM" + Integer.toString(staffID);
+				//x++;
+			
+		}	
+		else if(type.equalsIgnoreCase("med")) {
+			
+			return "MED" + Integer.toString(staffID);
+			}
+		else {		
+		
+		return null;
+		}
+	}
+
+	public String getRandomName() {
+		//return a random name
+		
+		String [] firstName = {"Alaska", "Trixie", "Katya", "Sharon", "Adore", "Alyssa", "Shangela", "Willam", "Bob", "Jinkx", "Yvie"};
+		String [] surname = {"Thunderfuck", "Mattel","Zamolodchikova", "Needles", "Delano", "Edwards", "Wadley", "Queen", "Belli", "Oddly"};
+		Random r = new Random();
+		
+		//pick a firstname and surname based on length of array
+		String fName = firstName[r.nextInt(firstName.length)];
+		String sName = surname[r.nextInt(surname.length)];
+		
+		return ( fName + " " + sName);
+	
+	}	
+	
+	
+	
+	
+//}
+
+
+
+}
+
+
+
+
+/*
+ public String getID(String type, int i) {
+		
+		int staffID = 100;
+		staffID+= i;
+		
+		if(type.equalsIgnoreCase("adm")) {
+				return "ADM" + Integer.toString(staffID);
+				//x++;
+			
+		}	
+		else if(type.equalsIgnoreCase("med")) {
+			
+			return "MED" + Integer.toString(x);
+			}
+		else {		
+		
+		return null;
+		}
+	}
+ */
+	
+	/*
 	// just want to create the staff objects (adm and med)
 
 	private final int numAdmStaff = 10;
@@ -22,6 +146,8 @@ public class StaffFactory {
 	private int currentMedID = 200;
 	//int numStaff = numAdmnStaff + numMedStaff;
 	
+	
+	// storing staff in two dif arrayList
 	private ArrayList <AdmStaff> admStaffList = new ArrayList<AdmStaff>();
 	private ArrayList <MedStaff> medStaffList = new ArrayList<MedStaff>();
 	
@@ -32,66 +158,82 @@ public class StaffFactory {
 	}
 	
 	// adding staff to the staff lists
+	// AdmStaff: Receptionist and Manager
+	// MedStaff: Veterinarian, Nurse and TraineeVet
 	public void addStaff() {
 		
-		int numRec = numAdmStaff/2;
-		int numMan = numAdmStaff/2;
+		int numRec = numAdmStaff/2; // 5 receptionists. (They're part-time students)
+		int numMan = numAdmStaff/2; // 5 managers
 		int ID;
 		
 		//=== ADM STAFF ==
+		
 		//Receptionists 
 		for (int i=0; i<numRec; i++) {
-			String name = getRandomName();
+			//String name = getRandomName();
 			ID = currentAdmID;
-			AdmStaff nextAdmStaff = new Receptionist(name, ID);
-			admStaffList.add(nextAdmStaff);
+			//AdmStaff nextAdmStaff = new Receptionist(getRandomName(), ID);
+			//admStaffList.add(nextAdmStaff);
+			admStaffList.add(new Receptionist(getRandomName(), ID));
 			currentAdmID++;
 			
 		}
+		
 		// Managers
 		for (int i=0; i<numMan; i++) {
-			String name = getRandomName();
-			ID = currentAdmID + numRec;
-			admStaffList.add(new Manager(name, ID));
+			ID = currentAdmID;
+			admStaffList.add(new Manager(getRandomName(), ID));
 			currentAdmID++;
 			
 		}
 		
 		// ==== MED STAFF ====
+		
 		// Veterinarian
 		for (int i=0; i<5; i++) {
-			String name = getRandomName();
 			ID = currentMedID;
-			medStaffList.add(new Veterinarian(name, ID));
+			medStaffList.add(new Veterinarian(getRandomName(), ID));
 			currentMedID++;
 		}
 		
 		// Nurse
 		for (int i=0; i<15; i++) {
-			String name = getRandomName();
 			ID = currentMedID;
-			medStaffList.add(new Nurse(name, ID));
+			medStaffList.add(new Nurse(getRandomName(), ID));
 			currentMedID++;
 		}
 		
 		// TraineeVet
 		for (int i =0; i < 10; i++) {
-			String name = getRandomName();
 			ID = currentMedID;
-			medStaffList.add(new TraineeVet(name, ID));
+			medStaffList.add(new TraineeVet(getRandomName(), ID));
 			currentMedID++;
 			
 		}
 	}
-		public Collection<String> listNames(){
-			ArrayList<String> names = new ArrayList<String>();
+		
+	// Creating an arrayList to store staff names
+	public Collection<String> listNames(){
+			ArrayList<String> staffNames = new ArrayList<String>();
+			
+			//AdmStaff
 			for(int i=0; i<admStaffList.size(); i++) {
-				AdmStaff staff = admStaffList.get(i);
-				String name = staff.getName();
-				names.add(name);
+				AdmStaff admStaff = admStaffList.get(i);
+				String admName = admStaff.getName();
+				staffNames.add(admName);
+			}
+			
+			//MedStaff
+			for(int i=0; i<medStaffList.size(); i++) {
+				MedStaff medStaff = medStaffList.get(i);
+				String medName = medStaff.getName();
+				staffNames.add(medName);
 				
 			}
-			return names;
+			return staffNames;
+			
+			// try to check enum to return either admStaff or medStaff 
+			
 			
 		}
 	
@@ -116,3 +258,4 @@ public class StaffFactory {
 			//String[] surname = {"Francisco", "Nascimento", "Sammon", "Silva", "Soares", "Duarte", "Oliveira", "O'Connor", "Kenny"};
 	
 }
+*/
