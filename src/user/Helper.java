@@ -106,11 +106,13 @@ public class Helper {
 	//List all Staff
 	public void listAllStaff() {
 		for (Staff staff: staffList) {
-			System.out.println("Type: " + staff.identify());
-			System.out.println("Name: " + staff.getName());
-			System.out.println("ID: " + staff.getID());
-			System.out.println();
+		System.out.println("Type: " + staff.identify());
+		System.out.println("Name: " + staff.getName());
+		System.out.println("ID: " + staff.getID());
+		System.out.println("Salary: " + staff.getSalary());
+		System.out.println();
 		}
+		 
 	}
 		
 		//List staff by Category
@@ -158,6 +160,14 @@ public class Helper {
 		
 	}
 	
+	public void listStaffNames() {
+		System.out.println("Staff List: \n");
+		for (int i = 0; i< staffList.size(); i++) {
+			System.out.println(staffList.get(i).getName());
+		}
+	
+	}
+	
 	
 	// Search for a specific member of staff by name
 	public Collection<Staff> searchStaffName(String keyword){
@@ -184,6 +194,13 @@ public class Helper {
 			System.out.println("Age: " + a.getAge());
 			System.out.println("Illness: " +a.getMedCondition());
 			System.out.println();
+		}
+	}
+	
+	public void listAllAnimalNames() {
+		System.out.println("\nBelow all the animals in our system");
+		for(Animal a: animalList) {
+			System.out.println(a.getName());
 		}
 	}
 	

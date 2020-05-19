@@ -8,6 +8,7 @@ public class Main {
 		
 		new CLI();
 		
+		
 		//Helper h = new Helper();
 		//h.printAllAnimals();
 		//h.printAllCats();
@@ -16,6 +17,8 @@ public class Main {
 		//h.listStaffByCategory("nurse");
 		
 		//h.performingTaskTwo();
+		
+		//h.listStaffNames();
 		
 		
 		
