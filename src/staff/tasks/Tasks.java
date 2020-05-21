@@ -1,4 +1,4 @@
-package staff.admStaff;
+package staff.tasks;
 
 public interface Tasks {
 	

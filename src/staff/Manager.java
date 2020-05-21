@@ -1,6 +1,6 @@
 package staff;
 
-import staff.admStaff.Tasks;
+import staff.tasks.Tasks;
 
 public class Manager extends AdmStaff implements Tasks {
 

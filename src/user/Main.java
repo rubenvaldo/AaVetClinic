@@ -8,23 +8,27 @@ public class Main {
 		
 		new CLI();
 		
-		
 		//Helper h = new Helper();
-		//h.printAllAnimals();
-		//h.printAllCats();
-		//h.listAnimalsByType("DoG");
-		//h.printAllStaff();
-		//h.listStaffByCategory("nurse");
+		//h.leeshaQueue();
+		//h.listOrder();
+		//h.nextPet();
 		
-		//h.performingTaskTwo();
-		
-		//h.listStaffNames();
 		
 		
 		
 		
 	// ================ TEST ZONE ====================== //
 		
+		
+		//h.printAllAnimals();
+		//h.printAllCats();
+		//h.listAnimalsByType("DoG");
+		//h.printAllStaff();
+		//h.listStaffByCategory("nurse");
+				
+		//h.performingTaskTwo();
+				
+		//h.listStaffNames();
 		
 		/**
 		System.out.println("==== keyword ====");

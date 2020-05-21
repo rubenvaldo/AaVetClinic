@@ -47,7 +47,6 @@ public class CLI {
 public void displayMainMenu() {
 	
 	printHeader();
-	//printMenu();
 	while(!exit) {
 		printMainMenu();
 		int choice = getUserInput();
@@ -140,6 +139,8 @@ public void displayMainMenu() {
 				
 			case 1:
 				h.listAllStaff();
+				System.out.println("What would u like to do next?");
+				//exit = true;
 				//displayBasicFuncionalities();
 				break;
 				
@@ -458,18 +459,15 @@ public void displayMainMenu() {
 			break;
 			
 		case 1:
-			//h.animalMember();
-			System.out.println("WIP");
+			h.leeshaQueue();
 			break;
 			
 		case 2:
-			System.out.println("WIP");
-			//h.animalOrder();
+			h.listOrder();
 			break;
 			
 		case 3:
-			System.out.println("WIP");
-			//h.nextPet();
+			h.nextPet();
 			break;
 			
 		case 4:
