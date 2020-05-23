@@ -2,10 +2,11 @@ package animals;
 
 public abstract class Animal {
 	
-	private String name, medCondition;
-	private int age;
-	private Animal next; // for the LinkedList aka Queue
-	//public abstract String identify();
+	// attributes accessible in the same package and subclasses
+	protected String name;
+	protected String medCondition;
+	protected int age;
+	protected Animal next; // for the LinkedList aka Queue
 	
 	
 	public Animal(String name, String medCondition, int age) {
@@ -13,48 +14,32 @@ public abstract class Animal {
 		this.name = name;
 		this.medCondition = medCondition;
 		this.age = age;
+		
+		
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public String getMedCondition() { //double check with AnimalFactory
+	public String getMedCondition() { 
 		return medCondition;
 	}
 
-	public void setMedCondition(String medCondition) {
-		this.medCondition = medCondition;
-	}
 
 	public int getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
-	}
-	
 	
 	@Override
 	public String toString() {
-		return ("Name: " + name + ", age: " + age + ", illness: " + medCondition);
+		return ("\nName: " + name + "\nAge: " + age + "\nIllness: " + medCondition);
 	}
-	
-	
-	/*
-	@Override
-	public String toString() {
-		return name + " " + age + " " + medCondition;
-	}
-	*/
+
 
 	public String identify() {
-		// TODO Auto-generated method stub
 		return "animal type";
 	}
 
@@ -62,11 +47,7 @@ public abstract class Animal {
 	public Animal getNext() {
 		return next;
 	}
-/*
-	public void setNext(Animal next) {
-		this.next = next;
-	}
-*/
+
 
 
 	public void setNext(Animal next) {

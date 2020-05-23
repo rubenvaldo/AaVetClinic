@@ -1,5 +1,8 @@
 package factory;
 
+// code according to guidance provided from Amilcar's youtube channel
+// https://www.youtube.com/watch?v=9GiKpPAD_r8&list=PL2RazpQ39sI1QEbGi59jn7aq2v-WDbY0I&index=17
+
 import animals.Animal;
 
 public class LinkedListFactory {
@@ -15,7 +18,7 @@ public class LinkedListFactory {
 		this.size = 0;
 	}
 	
-	public void add(Animal animal) {
+	public void add(Animal animal) { // add animal to the queue
 		if (size == 0) {
 			this.first = animal;
 			this.last = animal;
@@ -28,7 +31,7 @@ public class LinkedListFactory {
 		}
 	}
 	
-	public void addFirst(Animal animal) {
+	public void addFirst(Animal animal) { // add animal to the first postition
 		if(size == 0) {
 			this.first = animal;
 			this.last = animal;
@@ -44,7 +47,7 @@ public class LinkedListFactory {
 	
 	public Animal findAnimalbyPosition(int position) {
 		
-		//if(size == 0 || position >= size -1) {
+		//if(size == 0 || position >= size -1) { it didn't work with this notation
 		if (size ==0 || position >= size){
 			return null;			
 		}
@@ -100,7 +103,7 @@ public class LinkedListFactory {
 			toReturn += current + "\n ";
 			current = current.getNext();
 		}
-		//toReturn += "]";
+
 		
 		return toReturn;
 	}

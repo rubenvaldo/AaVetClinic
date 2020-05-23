@@ -4,7 +4,6 @@ public class GuineaPig extends Animal {
 
 	public GuineaPig(String name, String medCondition, int age) {
 		super(name, medCondition, age);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -13,6 +12,9 @@ public class GuineaPig extends Animal {
 		return "Guinea Pig";
 	}
 	
-	
+	@Override
+	public String toString() {
+		return ("\nType: Guinea Pig \nName: " + name + "\nAge: " + age + "\nIllness: " + medCondition);
+	}
 
 }

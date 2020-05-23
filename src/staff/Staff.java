@@ -24,28 +24,13 @@ public abstract class Staff {
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
 	public String getID() {
 		return ID;
 	}
 
 
-	public void setID(String iD) {
-		ID = iD;
-	}
-
-
 	public double getSalary() {
 		return salary;
-	}
-
-
-	public void setSalary(double salary) {
-		this.salary = salary;
 	}
 
 

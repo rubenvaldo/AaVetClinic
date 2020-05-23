@@ -1,38 +1,36 @@
 package user;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
+import java.util.Set;
 
 import animals.Animal;
 import factory.AnimalFactory;
 import factory.LinkedListFactory;
 import factory.StaffFactory;
 import staff.Manager;
-//import staff.Nurse;
 import staff.Receptionist;
 import staff.Staff;
-//import staff.TraineeVet;
-//import staff.Veterinarian;
+
 
 public class Helper {
 	
-	AnimalFactory animalFactory = new AnimalFactory();
-	StaffFactory staffFactory = new StaffFactory();
+	AnimalFactory animalFactory = new AnimalFactory(); //calling the animal factory class
+	StaffFactory staffFactory = new StaffFactory();    // likewise for staff
 	
-	private List <Animal> animalList = new ArrayList<Animal>();
-	private List<Staff> staffList = new ArrayList<Staff>();
+	private List <Animal> animalList = new ArrayList<Animal>(); // saving animals in memory
+	private List<Staff> staffList = new ArrayList<Staff>(); // saving staff in memory
 	
-	LinkedListFactory q1, q2, q3, q4, q5 ;
+	private LinkedListFactory q1, q2, q3, q4, q5 ; // using LinkedList for queue
 	
-	//HashMap <String, LinkedListFactory> map;
-	//ArrayList<String> vetList;
+	
 	
 	//populating arrayList
 	public Helper() {
@@ -44,22 +42,15 @@ public class Helper {
 		int numDog = numAnimal/numAnimalType;
 		int numGui = numAnimal/numAnimalType;
 		int numPok = numAnimal/numAnimalType;
+			
 		
-		
-		//Staff attribute
-		int numAdmStaff = 10;
-		int numMedStaff = 20;
-		int numStaff = numAdmStaff + numMedStaff;
-		int numMan = numAdmStaff/2;
-		int numRec = numAdmStaff - numMan;
-		int numVet = 5;
-		int numNur = 10;
-		int numTra = numMedStaff - (numVet + numNur);
-		
-		//map = new HashMap <String, LinkedListFactory> ();
-		//vetList = new ArrayList<String>();
-		
-		
+		//  start     x    final  ID   (used for creating the required amount of staff per type) 
+		int iMan = 0; int lMan = 5;
+		int iRec = 5; int lRec = 10;
+		int iVet = 0; int lVet = 5;
+		int iNur = 5; int lNur = 15;
+		int iTra = 15; int lTra = 30;
+			
 		
 		// ============= ANIMALS ===============
 		
@@ -87,33 +78,35 @@ public class Helper {
 		// ============= STAFF ===============
 		
 		// ADM STAFF
-		for(int i=0; i< numMan; i++) { // Manager
+		for(int i= iMan; i< lMan; i++) { // Manager
 			staffList.add(staffFactory.getStaffType("Manager", i));	
 		}
 		
-		for (int i= numMan; i< numAdmStaff; i++) { // Receptionist
+		for (int i= iRec; i< lRec; i++) { // Receptionist
 			staffList.add(staffFactory.getStaffType("Receptionist", i));
 		}
 		
 		// MED STAFF
-		for (int i = 0; i< numVet; i++) { // Veterinarian
+		for (int i = iVet; i< lVet; i++) { // Veterinarian
 			staffList.add(staffFactory.getStaffType("Veterinarian", i));
 		}
 		 
-		for (int i = 5; i<15; i++) { // Nurse
+		for (int i = iNur; i< lNur; i++) { // Nurse
 			staffList.add(staffFactory.getStaffType("Nurse", i));
 		}
 		
-		for (int i = 15; i<30; i++) { // Trainee Vet
+		for (int i = iTra; i< lTra; i++) { // Trainee Vet
 			staffList.add(staffFactory.getStaffType("TraineeVet", i));
 		}
 		
 		
 		// ============= QUEUE ===============
 		
+		// 5 queue - each with 200 animals
+		
 		// Q1
 		q1 = new LinkedListFactory();
-		for (int i = 0; i< 200; i++) {
+		for (int i = 0; i< 200; i++) { // 200 animals per queue
 			q1.add(animalList.get(i));			
 		}
 		
@@ -174,41 +167,55 @@ public class Helper {
 	}
 	
 	// List all staff performing a certain task01
-	public void performingTaskOne() { // redo this method...
-		Manager man = new Manager();
-		Receptionist recep = new Receptionist();
-		for (Staff pt: staffList) {
-			if(pt.getClass().getSimpleName().equalsIgnoreCase("Manager")){
-				System.out.println("I'm " + pt.getName()+ ". " + man.doTask01());		
-			} 
-			else if (pt.getClass().getSimpleName().equalsIgnoreCase("Receptionist")){
-				System.out.println("I'm " + pt.getName()+ ". " + recep.doTask01());	
-				
-			}
-		}
-		
-	}
 	
-	// List all staff performing a certain task02
-	public void performingTaskTwo() { // redo this method...
-		Manager man = new Manager();
-		Receptionist recep = new Receptionist();
+	
+	
+	public void performTask(String task) { 
+		Manager man = new Manager(); // invoking the Manager Class to implement Tasks interface
+		Receptionist recep = new Receptionist(); //Likewise for the Receptionist Class 
+		
+		if(task.equals("one")) {
 		for (Staff pt: staffList) {
 			if(pt.getClass().getSimpleName().equalsIgnoreCase("Manager")){
-				System.out.println("I'm " + pt.getName()+ ". " + man.doTask02());		
+				System.out.println("Hi! My name is " + pt.getName()+ ". I'm a Manager " + man.doTask01());		
 			} 
 			else if (pt.getClass().getSimpleName().equalsIgnoreCase("Receptionist")){
-				System.out.println("I'm " + pt.getName()+ ". " + recep.doTask02());	
+				System.out.println("Hi! My name is " + pt.getName()+ ". I'm a Receptionist " + recep.doTask01());	
 				
 			}
 		}
 		
-	}
+		}
+		else if (task.equals("two")){
+			for (Staff pt: staffList) {
+				if(pt.getClass().getSimpleName().equalsIgnoreCase("Manager")){
+					System.out.println("Hi! I'm a manager. My name is " + pt.getName()+ ". " + man.doTask02());		
+				} 
+				else if (pt.getClass().getSimpleName().equalsIgnoreCase("Receptionist")){
+					System.out.println("Hi! I'm a receptionist. My name is " + pt.getName()+ ". " + recep.doTask02());	
+					
+				}
+			}
+			
+		}
+		
+			
+		}
+	
+	
 	
 	public void listStaffNames() {
-		System.out.println("Staff List: \n");
-		for (int i = 0; i< staffList.size(); i++) {
-			System.out.println(staffList.get(i).getName());
+		
+		Set<String> staffName = new HashSet<String>(); // Since I want to print the names to user (without duplicates)
+		
+		for(Staff s: staffList) {
+			staffName.add(s.getName());	// putting them into the staffName Set Collection	
+		}
+		
+		System.out.println("\nStaff list names:\n");
+		Iterator<String> itr = staffName.iterator(); // iterating through the collection
+		while(itr.hasNext()) {
+			System.out.println(itr.next());
 		}
 	
 	}
@@ -216,12 +223,12 @@ public class Helper {
 	
 	// Search for a specific member of staff by name
 	public Collection<Staff> searchStaffName(String keyword){
-		ArrayList <Staff> staff = new ArrayList<Staff>();
-		ListIterator<Staff> iter = staffList.listIterator();
+		ArrayList <Staff> staff = new ArrayList<Staff>(); // ArrayList to save the staff that will match with the name chosen by the user 
+		ListIterator<Staff> iter = staffList.listIterator(); 
 		while (iter.hasNext()) {
 			Staff newStaff = iter.next();
 			String name = newStaff.getName();
-			if(name.equalsIgnoreCase(keyword)) {
+			if(name.equalsIgnoreCase(keyword)) { //checking condition
 				staff.add(newStaff);
 			}
 		}
@@ -243,16 +250,27 @@ public class Helper {
 	}
 	
 	public void listAllAnimalNames() {
-		System.out.println("\nBelow all the animals in our system");
+	
+		Set<String> animalName = new HashSet<String>(); // Since I want to print the names to user (without duplicates)
+														// I had initially printed the names off the arrayList
+		
+		// getting the names from the arrayList
 		for(Animal a: animalList) {
-			System.out.println(a.getName());
+			animalName.add(a.getName());	// putting them into the animalName Set Collection	
 		}
+		
+		System.out.println("\nAnimal list names\n");
+		Iterator<String> itr = animalName.iterator();
+		while(itr.hasNext()) {
+			System.out.println(itr.next());
+		}
+		
 	}
 	
 	//Listing animals by category
 	public void listAnimalsByType(String type) {
 		for (Animal a: animalList) {
-			if(a.getClass().getSimpleName().equalsIgnoreCase(type)){ // equals
+			if(a.getClass().getSimpleName().equalsIgnoreCase(type)){ 
 				System.out.println("Type: " + a.getClass().getSimpleName() + "\nName: " + a.getName() + "\nAge: " + a.getAge() + "\nIllness: " + a.getMedCondition());
 				System.out.println();
 				
@@ -282,11 +300,12 @@ public class Helper {
 	
 	// ============== ADDITIONAL FUNCTIONALITIES ================== //
 	
+	// Due to brain fatigue, unfortunately I haven't managed to avoid code repetition for the additional functionality  
 	
 	// creating a queue for each Veterinarian
 	public void leeshaQueue() {
 		
-		// defining a HashMap
+		// declaring and instantiating a HashMap (key, value)
 		HashMap <String, LinkedListFactory> map = new HashMap <String, LinkedListFactory> ();
 		
 		// populating an ArrayList with the name of the vet
@@ -298,6 +317,7 @@ public class Helper {
 			}
 		}
 		
+		// putting the queues into an arrayList 
 		ArrayList<LinkedListFactory> a = new ArrayList<LinkedListFactory>();
 		a.add(q1);
 		a.add(q2);
@@ -308,12 +328,12 @@ public class Helper {
 		
 		// Assigning a queue for each Veterinarian
 		for (int i=0; i< vetList.size(); i++) {
-			map.put(vetList.get(i), a.get(i));
+			map.put(vetList.get(i), a.get(i)); // using the put method
 			
 		}
 		
 		// printing the Veterinarian
-		System.out.println("List of Veterinarian");
+		System.out.println("\nList of Veterinarian");
 		for (int i =0; i<vetList.size();i++) {
 			System.out.println((i+1) + " - " + vetList.get(i));
 		}
@@ -326,22 +346,23 @@ public class Helper {
 		
 		while (userInput < 1 || userInput>5) {
 		try {
-			System.out.println("Press a number between 1-5");
+			System.out.println("\nPress a number between 1-5");
 			userInput = Integer.parseInt(myInput.readLine());
 			
 			// reprinting options
-			System.out.println("List of Veterinarian");
+			System.out.println("\nList of Veterinarian");
 			for (int i =0; i<vetList.size();i++) {
 				System.out.println((i+1) + " - " + vetList.get(i));
 			}
 		} catch (Exception e) {
-			System.out.println("Please type a valid name");
+			System.out.println("Please type a valid number");
 			
 			// reprinting Veterinarian options
-			System.out.println("List of Veterinarian");
+			System.out.println("\nList of Veterinarian");
 			for (int i =0; i<vetList.size();i++) {
 				System.out.println((i+1) + " - " + vetList.get(i));
 			}
+		}
 		
 		}
 		
@@ -376,9 +397,7 @@ public class Helper {
 		default:
 				System.out.println("ERROR! please type a valid number");
 		}
-			
 		
-		}	
 	
 	}
 
@@ -411,7 +430,7 @@ public class Helper {
 		}
 		
 		// printing the Veterinarian
-		System.out.println("List of Veterinarian");
+		System.out.println("\nList of Veterinarian");
 		for (int i =0; i<vetList.size();i++) {
 			System.out.println((i+1) + " - " + vetList.get(i));
 		}
@@ -424,22 +443,24 @@ public class Helper {
 		
 		while (userInput < 1 || userInput>5) {
 		try {
-			System.out.println("Press a number between 1-5");
+			System.out.println("\nPress a number between 1-5");
 			userInput = Integer.parseInt(myInput.readLine());
 			
 			// reprinting options
-			System.out.println("List of Veterinarian");
+			System.out.println("\nList of Veterinarian");
 			for (int i =0; i<vetList.size();i++) {
 				System.out.println((i+1) + " - " + vetList.get(i));
 			}
 		} catch (Exception e) {
-			System.out.println("Please type a valid name");
+			System.out.println("Please type a valid number");
 			
 			// reprinting Veterinarian options
-			System.out.println("List of Veterinarian");
+			System.out.println("\nList of Veterinarian");
 			for (int i =0; i<vetList.size();i++) {
 				System.out.println((i+1) + " - " + vetList.get(i));
 			}
+		
+		}
 		
 		}
 		
@@ -448,35 +469,35 @@ public class Helper {
 		case 1:
 			System.out.println("\nAnimal by order ");
 			for (int i = 0; i< q1.getCount(); i++) {
-				System.out.println((i + 1) + " " + q1.findAnimalbyPosition(i));
+				System.out.println("\nPosition in the queue: " + (i + 1) + q1.findAnimalbyPosition(i));
 			}
 			break;
 			
 		case 2:
 			System.out.println("\nAnimal by order");
 			for (int i = 0; i< q2.getCount(); i++) {
-				System.out.println((i + 1) + " " + q2.findAnimalbyPosition(i));
+				System.out.println("\nPosition in the queue: " + (i + 1) + q2.findAnimalbyPosition(i));
 			}
 			break;
 			
 		case 3:
 			System.out.println("\nAnimal by order");
 			for (int i = 0; i< q3.getCount(); i++) {
-				System.out.println((i + 1) + " " + q3.findAnimalbyPosition(i));
+				System.out.println("\nPosition in the queue: " + (i + 1) + q3.findAnimalbyPosition(i));
 			}
 			break;
 			
 		case 4:
 			System.out.println("\nAnimal by order");
 			for (int i = 0; i< q4.getCount(); i++) {
-				System.out.println((i + 1) + " " + q4.findAnimalbyPosition(i));
+				System.out.println("\nPosition in the queue: " + (i + 1) + q4.findAnimalbyPosition(i));
 			}
 			break;
 			
 		case 5:
 			System.out.println("\nAnimal by order");
 			for (int i = 0; i< q5.getCount(); i++) {
-				System.out.println((i + 1) + " " + q5.findAnimalbyPosition(i));
+				System.out.println("\nPosition in the queue: " + (i + 1) + q5.findAnimalbyPosition(i));
 			}
 			break;
 			
@@ -485,7 +506,7 @@ public class Helper {
 		}
 			
 		
-		}
+		
 		}
 
 
@@ -517,7 +538,7 @@ HashMap <String, LinkedListFactory> map = new HashMap <String, LinkedListFactory
 		}
 		
 		// printing the Veterinarian
-		System.out.println("List of Veterinarian");
+		System.out.println("\nList of Veterinarian");
 		for (int i =0; i<vetList.size();i++) {
 			System.out.println((i+1) + " - " + vetList.get(i));
 		}
@@ -530,11 +551,11 @@ HashMap <String, LinkedListFactory> map = new HashMap <String, LinkedListFactory
 		
 		while (userInput < 1 || userInput>5) {
 		try {
-			System.out.println("Press a number between 1-5");
+			System.out.println("\nPress a number between 1-5");
 			userInput = Integer.parseInt(myInput.readLine());
 			
 			// reprinting options
-			System.out.println("List of Veterinarian");
+			System.out.println("\nList of Veterinarian");
 			for (int i =0; i<vetList.size();i++) {
 				System.out.println((i+1) + " - " + vetList.get(i));
 			}
@@ -542,20 +563,23 @@ HashMap <String, LinkedListFactory> map = new HashMap <String, LinkedListFactory
 			System.out.println("Please type a valid name");
 			
 			// reprinting Veterinarian options
-			System.out.println("List of Veterinarian");
+			System.out.println("\nList of Veterinarian");
 			for (int i =0; i<vetList.size();i++) {
 				System.out.println((i+1) + " - " + vetList.get(i));
 			}
+		}
 		
 		}
 		
+		 
 		switch(userInput) {
 		
 		case 1:
 			System.out.println("\nAnimal being treated by the Veterinarian ");
-			System.out.println(q1.removeFirst());
+			System.out.println(q1.removeFirst()); // remove the first animal from the queue. 
+												  //Here, I'm assuming that it's the current animal being seeing by a vet 
 			System.out.println("\nNext animal ");
-			System.out.println(q1.removeFirst());
+			System.out.println(q1.removeFirst()); //  next animal to be seen by a doctor
 			break;
 			
 		case 2:
@@ -592,188 +616,9 @@ HashMap <String, LinkedListFactory> map = new HashMap <String, LinkedListFactory
 		}
 			
 		
-		}
-		
-		
 	}	
 	
 		
-	}
+}
 	
 	
-	// ================= DRAFT ZONE ====================
-	//System.out.println(vetList);
-			/*
-			System.out.println("Type the name of the vet");
-			
-			BufferedReader myInput = new BufferedReader(new InputStreamReader (System.in));
-			String userInput = "";
-			try {
-				userInput = myInput.readLine();
-			} catch (IOException e) {
-				System.out.println("Please type a valid name");
-			}
-			
-			//if(map.containsKey(userInput)){
-				
-				//if(map.con)
-			String key = userInput;
-			boolean isPresent = map.containsKey(key);
-			
-			if(isPresent== true) {
-				System.out.println(map.get(key));
-			}
-			else {
-				System.out.println("no");
-			}
-			
-			/*
-			for (String i: map.keySet()) {
-				if(userInput.equalsIgnoreCase(i)) {
-				//if(map.containsKey(userInput)){
-					//System.out.println(map.get(i));
-				}
-				
-				*/
-				
-			
-			
-		// HashMap<Staff, Queue> map = new LinkedHashMap<Staff, Queue>();
-		// ArrayList<Queue<Animal>> queueArray = new ArrayList<Queue<Animal>>();	
-			
-			//if(map.containsKey(userInput){
-			//	System.out.println(q);
-			
-	
-	/**
-	public Collection<Animal> searchName(String keyword) {
-		ArrayList<Animal> foundAnimal = new ArrayList<Animal>();
-		for (int i = 0; i < animalList.size(); i++ ) {
-			if(animalList.get(i).getName().equalsIgnoreCase(keyword)) {
-				Animal animal = animalList.get(i);
-				foundAnimal.add(animal);
-			}
-		}
-		return foundAnimal;
-	}
-	*/
-	
-	
-	
-	
-	/*
-	public String searchAnimal (String keyword, List<Animal>pool) {
-		for(int i=0; i< pool.size();i++){
-			if(pool.get(i).getName().equalsIgnoreCase(keyword)) {
-				return pool.get(i).getName();
-			}
-		}
-		return null;
-	}
-	*/
-	
-	
-	/**
-	public String searchAnimalByName(String target, List<Animal> pool) {
-		boolean found = false;
-		int i = 0;
-		do {
-			if(pool.get(i).getName() == target) {
-				found = true;
-				return "Name: ";// + pool.get(i).getName() + pool.get(i).getAge()+ pool.get(i).getMedCondition();
-			}
-			i++;
-		}while (!found && i < pool.size());
-		return null;
-						
-		
-	}
-	*/
-	
-	
-	/*
-	public void printAllDogs() {
-		for (Animal pAD: animalList) {
-			if(pAD.getClass().getSimpleName().equalsIgnoreCase("dog")){
-				System.out.println(pAD.getName() + " " + pAD.getClass().getSimpleName());	
-				
-			}
-
-		}
-
-	}
-	
-	public void printAllGP() {
-		for (Animal pAGP: animalList) {
-			if(pAGP.getClass().getSimpleName().equalsIgnoreCase("guineapig")){
-				System.out.println(pAGP.getName() + " " + pAGP.getClass().getSimpleName());	
-				
-			}
-
-		}
-
-	}
-	
-	public void printAllPokemon() {
-		for (Animal pAP: animalList) {
-			if(pAP.getClass().getSimpleName().equalsIgnoreCase("pokemon")){
-				System.out.println(pAP.getName() + " " + pAP.getClass().getSimpleName());	
-				
-			}
-
-		}
-
-	}
-	*/
-	
-	/**
-	// Manager
-	for (int i =0; i< 5; i++) {		
-		//String name = staffFactory.getRandomName();
-		//double salary = staffFactory.getMgrSalary();
-		//String ID = staffFactory.getID("adm", admID);
-		//staffList.add(new Manager (name, ID, salary));
-		staffList.add(new Manager(staffFactory.getRandomName(), staffFactory.getID("adm", mgrID), staffFactory.getMgrSalary()));
-		mgrID++;
-	}
-	
-	// Receptionist
-	for (int i =0; i<5; i++) {
-		staffList.add(new Receptionist(staffFactory.getRandomName(), staffFactory.getID("adm", recID), staffFactory.getRecepSalary()));
-		recID++;
-	}
-	
-	// Veterinarian
-	for (int i = 0; i< 5; i++) {
-		staffList.add(new Veterinarian(staffFactory.getRandomName(), staffFactory.getID("med", vetID), staffFactory.getVetSalary()));
-		vetID++;
-	}
-	
-	// Nurse
-	for (int i = 0; i< 5; i++) {
-		staffList.add(new Nurse(staffFactory.getRandomName(), staffFactory.getID("med", nurID), staffFactory.getNurseSalary()));
-		nurID++;
-	}
-
-	// Trainee Vet
-	for (int i = 0; i< 5; i++) {
-		staffList.add(new TraineeVet(staffFactory.getRandomName(), staffFactory.getID("med", traID), staffFactory.getTraineeSalary()));
-		traID++;
-	}	
-	*/	
-	
-	/*
-	public int searchAnimalByName(String target, List<Animal> pool) {
-		boolean found = false;
-		int i = 0;
-		do {
-			if(pool.get(i).getName().equals(target)) {
-				found = true;
-				return i; //"Name: ";// + pool.get(i).getName() + pool.get(i).getAge()+ pool.get(i).getMedCondition();
-			}
-			i++;
-		}while (!found && i < pool.size());
-		return -1;
-	}
-	*/
-

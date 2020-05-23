@@ -6,7 +6,6 @@ public class Manager extends AdmStaff implements Tasks {
 
 	public Manager(String name, String ID, double salary) {
 		super(name, ID, salary);
-		// TODO Auto-generated constructor stub
 	}
 
 	
@@ -23,16 +22,15 @@ public class Manager extends AdmStaff implements Tasks {
 
 
 	@Override
-	public String doTask01() {
-		return "I'm monitoring a process group";// + this.toString();
+	public String doTask01() { // overrides Tasks interface
+		return "I'm working on the business plan of the clinic";
 	}
 
 
 	@Override
 	public String doTask02() {
-		return "I'm doing the payroll";
+		return "I'm working on the payroll";
 	}
-	
 	
 
 }
